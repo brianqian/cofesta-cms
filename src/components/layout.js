@@ -9,7 +9,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import theme from '../style/theme';
+import { theme } from '../style/theme';
 import Header from './header';
 
 const GlobalStyle = createGlobalStyle`
