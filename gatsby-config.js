@@ -14,6 +14,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `gallery`,
+        path: `${__dirname}/src/img/gallery`,
+      },
+    },
+    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/static/img`,
@@ -39,6 +46,31 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/img/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-relative-images',
+            options: {
+              name: 'uploads',
+            },
+          },
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 2048,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-copy-linked-files',
+            options: {
+              destinationDir: 'static',
+            },
+          },
+        ],
       },
     },
     {
