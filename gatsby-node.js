@@ -1,3 +1,5 @@
+const path = require('path');
+
 const { createFilePath } = require('gatsby-source-filesystem');
 const { fmImagesToRelative } = require('gatsby-remark-relative-images');
 
@@ -24,6 +26,9 @@ exports.createPages = async ({ actions, graphql }) => {
             fields {
               slug
             }
+            frontmatter {
+              templateKey
+            }
           }
         }
       }
@@ -31,10 +36,13 @@ exports.createPages = async ({ actions, graphql }) => {
   `);
 
   data.allMarkdownRemark.edges.forEach(edge => {
-    const { slug } = edge.node.fields;
+    const {
+      fields: { slug },
+      frontmatter,
+    } = edge.node;
     actions.createPage({
       path: slug,
-      component: require.resolve(`./src/templates/gallery-image.js`),
+      component: path.resolve(`./src/templates/${String(frontmatter.templateKey)}.js`),
       context: { slug },
     });
   });

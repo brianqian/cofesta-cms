@@ -14,13 +14,6 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `gallery`,
-        path: `${__dirname}/src/img/gallery`,
-      },
-    },
-    {
       resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/static/img`,
@@ -35,7 +28,12 @@ module.exports = {
       },
     },
     `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-transformer-sharp`,
+      options: {
+        defaultQuality: 85,
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
