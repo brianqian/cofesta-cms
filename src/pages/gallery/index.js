@@ -6,7 +6,7 @@ import Layout from '../../components/layout';
 import SEO from '../../components/seo';
 
 const GalleryPage = ({ data }) => {
-  console.log(data.imgFiles.edges[0].node.childImageSharp.fullImage);
+  console.log(data.imgFiles.edges[0].node.childImageSharp);
 
   return (
     <Layout>
@@ -15,7 +15,7 @@ const GalleryPage = ({ data }) => {
       <p>Welcome to your new Gatsby site.</p>
       <p>Now go build something great.</p>
       {data.imgFiles.edges.map(({ node }) => {
-        return <Img fluid={node.childImageSharp.thumbnail} />;
+        return <Img fixed={node.childImageSharp.thumbnail} />;
       })}
       {data.imgFiles.edges.map(({ node }) => {
         return <Img fluid={node.childImageSharp.fullImage} />;
@@ -35,7 +35,7 @@ export const query = graphql`
             fullImage: fluid(maxWidth: 800) {
               ...GatsbyImageSharpFluid
             }
-            thumbnail: fixed(width: 100) {
+            thumbnail: fixed(width: 200, height: 200) {
               ...GatsbyImageSharpFixed
             }
           }

@@ -9,8 +9,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useStaticQuery, graphql } from 'gatsby';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
-import { theme } from '../style/theme';
-import Header from './header';
+import { theme } from '../utils/theme';
+import NavBar from './nav';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Special+Elite|Rock+Salt&display=swap');
@@ -36,19 +36,21 @@ a {
 `;
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+  const { siteInfo } = useStaticQuery(
+    graphql`
+      query {
+        siteInfo: markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
+          frontmatter {
+            title
+          }
         }
       }
-    }
-  `);
+    `
+  );
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <NavBar title={siteInfo.frontmatter.title} />
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <main>{children}</main>
